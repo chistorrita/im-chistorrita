@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Chistorrita</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(270deg, #000000, #2e004f, #000000);
+      background-size: 600% 600%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      font-size: 50px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      text-shadow: 0 0 15px #9b59b6, 0 0 30px #9b59b6;
+    }
+
+    p {
+      font-size: 22px;
+      margin-bottom: 50px;
+      text-shadow: 0 0 5px #fff;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    /* Botones normales */
+    button {
+      padding: 20px 60px;
+      font-size: 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #fff;
+      background: #9b59b6;
+      box-shadow: 0 0 10px #9b59b6, 0 0 20px #9b59b6;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #d27aff, 0 0 40px #d27aff;
+    }
+
+    /* Botones neon estilo link */
+    .neon-btn {
+      padding: 20px 60px;
+      font-size: 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #fff;
+      background: #9b59b6;
+      box-shadow: 0 0 10px #9b59b6, 0 0 20px #9b59b6;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .neon-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #d27aff, 0 0 40px #d27aff;
+    }
+  </style>
+</head>
+<body>
+  <header>Chistorrita games✝</header>
+  <p>Haz clic en un botón para abrir tu juego favorito:</p>
+
+  <div class="buttons">
+    <!-- Botón FNF -->
+    <a href="https://chistorrita.github.io/im-chistorrita/" class="neon-btn">
+      Jugar FNF
+    </a>
+
+    <!-- Botones normales de otros juegos -->
+    <button onclick="window.open('tetris.html', '_blank')">Tetris</button>
+    <button onclick="window.open('flappy.html', '_blank')">Flappy Bird</button>
+  </div>
+</body>
+</html>
+
+
