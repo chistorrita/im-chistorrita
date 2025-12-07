@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Chistorrita</title>
+  <title>Chistorrita Games</title>
   <style>
     body {
       margin: 0;
@@ -31,12 +31,6 @@
       text-shadow: 0 0 15px #9b59b6, 0 0 30px #9b59b6;
     }
 
-    p {
-      font-size: 22px;
-      margin-bottom: 50px;
-      text-shadow: 0 0 5px #fff;
-    }
-
     .buttons {
       display: flex;
       flex-direction: column;
@@ -44,26 +38,7 @@
       align-items: center;
     }
 
-    /* Botones normales */
-    button {
-      padding: 20px 60px;
-      font-size: 24px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      color: #fff;
-      background: #9b59b6;
-      box-shadow: 0 0 10px #9b59b6, 0 0 20px #9b59b6;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px #d27aff, 0 0 40px #d27aff;
-    }
-
-    /* Botones neon estilo link */
-    .neon-btn {
+    .btn {
       padding: 20px 60px;
       font-size: 24px;
       border: none;
@@ -75,30 +50,20 @@
       transition: 0.3s;
       text-decoration: none;
       display: inline-block;
-      text-align: center;
     }
 
-    .neon-btn:hover {
+    .btn:hover {
       transform: scale(1.1);
       box-shadow: 0 0 20px #d27aff, 0 0 40px #d27aff;
     }
   </style>
 </head>
 <body>
-  <header>Chistorrita games✝</header>
-  <p>Haz clic en un botón para abrir tu juego favorito:</p>
-
+  <header>Chistorrita Games ✝</header>
   <div class="buttons">
-    <!-- Botón FNF -->
-    <a href="https://chistorrita.github.io/im-chistorrita/" class="neon-btn">
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/fn/index.html" target="_blank">
       Jugar FNF
     </a>
-
-    <!-- Botones normales de otros juegos -->
-    <button onclick="window.open('tetris.html', '_blank')">Tetris</button>
-    <button onclick="window.open('flappy.html', '_blank')">Flappy Bird</button>
   </div>
 </body>
 </html>
-
-
