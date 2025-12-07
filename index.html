@@ -60,14 +60,38 @@
 </head>
 <body>
   <header>Chistorrita Games</header>
+
   <div class="buttons">
-    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/fn/dom.html" target="_blank">
+
+    <!-- DOOM en blank page -->
+    <button class="btn" onclick="
+      fetch('https://chistorrita.github.io/im-chistorrita/fn/dom.html?t=' + Date.now())
+      .then(r => r.text())
+      .then(html => {
+        let win = window.open('about:blank', '_blank');
+        win.document.open();
+        win.document.write(html);
+        win.document.close();
+      });
+    ">
       Doom
-    </a>
-    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/fnf/fnf.html" target="_blank">
+    </button>
+
+    <!-- FNF en blank page -->
+    <button class="btn" onclick="
+      fetch('https://chistorrita.github.io/im-chistorrita/fnf/fnf.html?t=' + Date.now())
+      .then(r => r.text())
+      .then(html => {
+        let win = window.open('about:blank', '_blank');
+        win.document.open();
+        win.document.write(html);
+        win.document.close();
+      });
+    ">
       FNF
-    </a>
+    </button>
+
   </div>
+
 </body>
 </html>
-
