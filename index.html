@@ -63,11 +63,10 @@
 
   <div class="buttons">
 
-    <!-- DOOM en blank page -->
+    <!-- DOOM -->
     <button class="btn" onclick="
       fetch('https://chistorrita.github.io/im-chistorrita/fn/dom.html?t=' + Date.now())
-      .then(r => r.text())
-      .then(html => {
+      .then(r => r.text()).then(html => {
         let win = window.open('about:blank', '_blank');
         win.document.open();
         win.document.write(html);
@@ -77,11 +76,10 @@
       Doom
     </button>
 
-    <!-- FNF en blank page -->
+    <!-- FNF -->
     <button class="btn" onclick="
       fetch('https://chistorrita.github.io/im-chistorrita/fnf/fnf.html?t=' + Date.now())
-      .then(r => r.text())
-      .then(html => {
+      .then(r => r.text()).then(html => {
         let win = window.open('about:blank', '_blank');
         win.document.open();
         win.document.write(html);
@@ -89,6 +87,19 @@
       });
     ">
       FNF
+    </button>
+
+    <!-- DRAGON -->
+    <button class="btn" onclick="
+      fetch('https://chistorrita.github.io/im-chistorrita/dragon/index.html?t=' + Date.now())
+      .then(r => r.text()).then(html => {
+        let win = window.open('about:blank', '_blank');
+        win.document.open();
+        win.document.write(html);
+        win.document.close();
+      });
+    ">
+      Dragon
     </button>
 
   </div>
