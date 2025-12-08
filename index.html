@@ -1,94 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Chistorrita Games</title>
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    background-image: url('https://i.pinimg.com/originals/c1/bc/3d/c1bc3d6ba8b7a7c9ff037660e2e4f2c2.gif');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    font-family: Arial, sans-serif;
-    color: white;
-  }
+  <meta charset="UTF-8">
+  <title>Chistorrita Games</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
 
-  .search-box {
-    text-align: center;
-    margin: 20px 0;
-  }
+      /* Fondo GIF */
+      background: url('https://i.pinimg.com/originals/c1/bc/3d/c1bc3d6ba8b7a7c9ff037660e2e4f2c2.gif') no-repeat center center fixed;
+      background-size: cover;
+    }
 
-  .search-box input {
-    padding: 10px;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 10px;
-    border: none;
-    font-size: 16px;
-  }
+    header {
+      font-size: 45px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-shadow: 0 0 15px #9b59b6, 0 0 30px #9b59b6;
+      z-index: 1;
+    }
 
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    padding: 20px;
-  }
+    #search {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 2px solid #888; /* borde gris */
+      outline: none;
+      margin-bottom: 15px;
+      text-align: center;
+      background: #000;
+      color: #fff;
+      z-index: 1;
+    }
 
-  button {
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: 2px solid rgba(255,255,255,0.6);
-    padding: 12px 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: 0.3s;
-    backdrop-filter: blur(4px);
-  }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 8px;
+      width: 100%;
+      max-width: 1400px;
+      z-index: 1;
+    }
 
-  button:hover {
-    background: rgba(255,255,255,0.2);
-  }
-</style>
+    .btn {
+      padding: 10px 20px; /* más pequeño */
+      font-size: 14px;    /* más pequeño */
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+
+      /* Fondo negro semitransparente */
+      background: rgba(0,0,0,0.7);
+      border: 2px solid #888;
+      border-radius: 8px;
+      transition: 0.3s;
+      width: auto;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      border-color: #9b59b6;
+      background: rgba(0,0,0,0.85);
+    }
+  </style>
+
+  <script>
+    function buscarJuego() {
+      let input = document.getElementById("search").value.toLowerCase();
+      let botones = document.getElementsByClassName("btn");
+      for (let i = 0; i < botones.length; i++) {
+        let texto = botones[i].innerText.toLowerCase();
+        botones[i].style.display = texto.includes(input) ? "inline-block" : "none";
+      }
+    }
+  </script>
 </head>
+
 <body>
+  <header>Chistorrita Games</header>
+  <input type="text" id="search" placeholder="Buscar juego..." onkeyup="buscarJuego()">
 
-<div class="search-box">
-  <input type="text" id="search" placeholder="Buscar juego..." onkeyup="filtrar()">
-</div>
-
-<div class="container" id="gameList">
-  <button onclick="openGame('fn/index.html')">FNF</button>
-  <button onclick="openGame('dom.html')">DOOM</button>
-  <button onclick="openGame('dragon/index.html')">Dragon</button>
-  <button onclick="openGame('db/index.html')">DB</button>
-  <button onclick="openGame('fnfinfidelity/index.html')">FNF Infidelity</button>
-  <button onclick="openGame('pizza/index.html')">Pizza Tower</button>
-  <button onclick="openGame('pvz/index.html')">PVZ</button>
-  <button onclick="openGame('sniper/index.html')">Sniper</button>
-  <button onclick="openGame('tetris/index.html')">Tetris</button>
-  <button onclick="openGame('whitty/index.html')">Whitty</button>
-</div>
-
-<script>
-function openGame(url) {
-  window.open(url, '_blank');
-}
-
-function filtrar() {
-  let input = document.getElementById('search').value.toLowerCase();
-  let botones = document.querySelectorAll('#gameList button');
-
-  botones.forEach(b => {
-    let texto = b.innerText.toLowerCase();
-    b.style.display = texto.includes(input) ? '' : 'none';
-  });
-}
-</script>
-
+  <div class="buttons">
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/fn/dom.html" target="_blank">Doom2</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/fnf/fnf.html" target="_blank">Fnf Neon</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/infidelity/.fnfinfidelityhtml" target="_blank">FNF Infidelity</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/db/klk.html" target="_blank">Dragon Ball Advance</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/pizza/pizza.html" target="_blank">Pizza Tower</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/pvz/pvz.html" target="_blank">PVZ</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/sniper/sniper.html" target="_blank">Sniper</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/tetris/tetris.html" target="_blank">Tetris</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/whitty/whitty.html" target="_blank">Fnf Whitty</a>
+    <a class="btn" href="https://chistorrita.github.io/im-chistorrita/dragon/dragon.html" target="_blank">Dragon Ball</a>
+  </div>
 </body>
 </html>
+
