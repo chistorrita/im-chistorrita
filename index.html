@@ -3,76 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <title>Chistorrita Games</title>
+  <link id="favicon" rel="icon" href="https://i.imgur.com/OJkaVOI.png" type="image/png">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      background: url('https://i.pinimg.com/originals/c1/bc/3d/c1bc3d6ba8b7a7c9ff037660e2e4f2c2.gif') no-repeat center center fixed;
-      background-size: cover;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; background: url('https://i.pinimg.com/originals/c1/bc/3d/c1bc3d6ba8b7a7c9ff037660e2e4f2c2.gif') no-repeat center center fixed; background-size: cover; }
+    header { font-size: 45px; font-weight: bold; margin-bottom: 15px; text-shadow: 0 0 15px #9b59b6, 0 0 30px #9b59b6; z-index: 1; }
+    #search { width: 300px; padding: 10px; font-size: 16px; border-radius: 8px; border: 2px solid #888; outline: none; margin-bottom: 15px; text-align: center; background: #000; color: #fff; z-index: 1; }
+    .buttons { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 8px; width: 100%; max-width: 1400px; z-index: 1; }
+    .btn { padding: 10px 20px; font-size: 14px; color: #fff; text-decoration: none; display: inline-block; text-align: center; background: rgba(0,0,0,0.7); border: 2px solid #888; border-radius: 8px; transition: 0.3s; width: auto; cursor: pointer; }
+    .btn:hover { transform: scale(1.05); border-color: #9b59b6; background: rgba(0,0,0,0.85); }
 
-    header {
-      font-size: 45px;
-      font-weight: bold;
-      margin-bottom: 15px;
-      text-shadow: 0 0 15px #9b59b6, 0 0 30px #9b59b6;
-      z-index: 1;
-    }
-
-    #search {
-      width: 300px;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 2px solid #888;
-      outline: none;
-      margin-bottom: 15px;
-      text-align: center;
-      background: #000;
-      color: #fff;
-      z-index: 1;
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      gap: 8px;
-      width: 100%;
-      max-width: 1400px;
-      z-index: 1;
-    }
-
-    .btn {
-      padding: 10px 20px;
-      font-size: 14px;
-      color: #fff;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-      background: rgba(0,0,0,0.7);
-      border: 2px solid #888;
-      border-radius: 8px;
-      transition: 0.3s;
-      width: auto;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-      border-color: #9b59b6;
-      background: rgba(0,0,0,0.85);
-    }
+    /* Configuración */
+    #config-btn { position: fixed; top: 20px; right: 20px; font-size: 24px; background: rgba(0,0,0,0.7); color: #fff; border: 2px solid #888; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; transition: 0.3s; }
+    #config-btn:hover { background: rgba(0,0,0,0.85); border-color: #9b59b6; }
+    #config-panel { position: fixed; top: 70px; right: 20px; width: 250px; padding: 15px; background: rgba(0,0,0,0.9); border: 2px solid #888; border-radius: 10px; display: none; flex-direction: column; gap: 10px; z-index: 999; }
+    #config-panel input { width: 100%; padding: 5px; border-radius: 5px; border: 1px solid #888; outline: none; }
+    #config-panel button { padding: 6px; border: none; border-radius: 5px; background: #9b59b6; color: #fff; cursor: pointer; transition: 0.3s; }
+    #config-panel button:hover { background: #d27aff; }
+    #close-config { position: absolute; top: 5px; right: 5px; cursor: pointer; font-weight: bold; }
+    /* Botón de Sugerencias */
+    #suggest-btn { position: fixed; top: 20px; left: 20px; font-size: 24px; background: rgba(0,0,0,0.7); color: #fff; border: 2px solid #888; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; transition: 0.3s; }
+    #suggest-btn:hover { background: rgba(0,0,0,0.85); border-color: #9b59b6; }
   </style>
-
   <script>
-    // Función de búsqueda
+    // Búsqueda
     function buscarJuego() {
       let input = document.getElementById("search").value.toLowerCase();
       let botones = document.getElementsByClassName("btn");
@@ -82,28 +35,65 @@
       }
     }
 
-    // Función para abrir un juego en blank page
     function abrirJuego(url) {
       fetch(url + '?t=' + Date.now())
-        .then(response => response.text())
-        .then(function(text) {
-          let newWin = window.open('about:blank', '_blank');
-          if (newWin) {
-            newWin.document.open();
-            newWin.document.write(text);
-            newWin.document.close();
-          } else {
-            alert('Tu navegador bloqueó la ventana emergente.');
-          }
+        .then(r => r.text())
+        .then(t => {
+          let w = window.open('about:blank', '_blank');
+          if(w){ w.document.open(); w.document.write(t); w.document.close(); }
+          else alert('Tu navegador bloqueó la ventana emergente.');
         });
+    }
+
+    function abrirPadlet() { window.open('https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e', '_blank'); }
+
+    function toggleConfig() { 
+      const panel = document.getElementById("config-panel"); 
+      panel.style.display = panel.style.display === "flex" ? "none" : "flex"; 
+    }
+
+    function cerrarConfig() { document.getElementById("config-panel").style.display = "none"; }
+
+    function cambiarTitulo() {
+      const nuevoTitulo = document.getElementById("nuevo-titulo").value;
+      if(nuevoTitulo.trim() !== "") document.title = nuevoTitulo;
+    }
+
+    function cambiarIcono() {
+      const nuevoIcono = document.getElementById("nuevo-icono").value;
+      if(nuevoIcono.trim() !== "") document.getElementById("favicon").href = nuevoIcono;
+    }
+
+    // Botón de pánico configurando tecla
+    let panicURL = "https://classroom.google.com/";
+    let panicKey = "p"; // tecla por defecto
+
+    function cambiarPanicKey() {
+      const key = document.getElementById("panic-key").value.trim();
+      if(key !== "") {
+        panicKey = key.toLowerCase();
+        alert("Tecla de pánico actualizada a: " + panicKey);
+      }
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if(e.key.toLowerCase() === panicKey) {
+        window.location.href = panicURL;
+      }
+    });
+
+    function cambiarPanicURL() {
+      const url = document.getElementById("panic-url").value.trim();
+      if(url !== "") {
+        panicURL = url;
+        alert("URL de pánico actualizada!");
+      }
     }
   </script>
 </head>
-
 <body>
   <header>Chistorrita Games</header>
   <input type="text" id="search" placeholder="Buscar juego..." onkeyup="buscarJuego()">
-
   <div class="buttons">
     <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/fn/dom.html')">Doom2</div>
     <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/fnf/fnf.html')">Fnf Neon</div>
@@ -115,6 +105,33 @@
     <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/tetris/tetris.html')">Tetris</div>
     <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/whitty/whitty.html')">Fnf Whitty</div>
     <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/dragon/dragon.html')">Dragon Ball</div>
+  </div>
+
+  <!-- Botón de Sugerencias -->
+  <div id="suggest-btn" onclick="abrirPadlet()">📬</div>
+
+  <!-- Botón de Configuración -->
+  <div id="config-btn" onclick="toggleConfig()">⚙️</div>
+
+  <!-- Panel de Configuración -->
+  <div id="config-panel">
+    <span id="close-config" onclick="cerrarConfig()">✖️</span>
+
+    <label>Nuevo nombre de la pestaña:</label>
+    <input type="text" id="nuevo-titulo" placeholder="Escribe un título">
+    <button onclick="cambiarTitulo()">Cambiar nombre</button>
+
+    <label>URL del nuevo icono:</label>
+    <input type="text" id="nuevo-icono" placeholder="https://ejemplo.com/icon.png">
+    <button onclick="cambiarIcono()">Cambiar icono</button>
+
+    <label>Tecla de pánico:</label>
+    <input type="text" id="panic-key" maxlength="1" placeholder="Ej: p">
+    <button onclick="cambiarPanicKey()">Actualizar tecla</button>
+
+    <label>URL del botón de pánico:</label>
+    <input type="text" id="panic-url" placeholder="https://classroom.google.com/">
+    <button onclick="cambiarPanicURL()">Actualizar URL</button>
   </div>
 </body>
 </html>
