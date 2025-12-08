@@ -1,137 +1,198 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Chistorrita Games</title>
-  <link id="favicon" rel="icon" href="https://i.imgur.com/OJkaVOI.png" type="image/png">
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; background: url('https://i.pinimg.com/originals/c1/bc/3d/c1bc3d6ba8b7a7c9ff037660e2e4f2c2.gif') no-repeat center center fixed; background-size: cover; }
-    header { font-size: 45px; font-weight: bold; margin-bottom: 15px; text-shadow: 0 0 15px #9b59b6, 0 0 30px #9b59b6; z-index: 1; }
-    #search { width: 300px; padding: 10px; font-size: 16px; border-radius: 8px; border: 2px solid #888; outline: none; margin-bottom: 15px; text-align: center; background: #000; color: #fff; z-index: 1; }
-    .buttons { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 8px; width: 100%; max-width: 1400px; z-index: 1; }
-    .btn { padding: 10px 20px; font-size: 14px; color: #fff; text-decoration: none; display: inline-block; text-align: center; background: rgba(0,0,0,0.7); border: 2px solid #888; border-radius: 8px; transition: 0.3s; width: auto; cursor: pointer; }
-    .btn:hover { transform: scale(1.05); border-color: #9b59b6; background: rgba(0,0,0,0.85); }
-
-    /* Configuración */
-    #config-btn { position: fixed; top: 20px; right: 20px; font-size: 24px; background: rgba(0,0,0,0.7); color: #fff; border: 2px solid #888; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; transition: 0.3s; }
-    #config-btn:hover { background: rgba(0,0,0,0.85); border-color: #9b59b6; }
-    #config-panel { position: fixed; top: 70px; right: 20px; width: 250px; padding: 15px; background: rgba(0,0,0,0.9); border: 2px solid #888; border-radius: 10px; display: none; flex-direction: column; gap: 10px; z-index: 999; }
-    #config-panel input { width: 100%; padding: 5px; border-radius: 5px; border: 1px solid #888; outline: none; }
-    #config-panel button { padding: 6px; border: none; border-radius: 5px; background: #9b59b6; color: #fff; cursor: pointer; transition: 0.3s; }
-    #config-panel button:hover { background: #d27aff; }
-    #close-config { position: absolute; top: 5px; right: 5px; cursor: pointer; font-weight: bold; }
-    /* Botón de Sugerencias */
-    #suggest-btn { position: fixed; top: 20px; left: 20px; font-size: 24px; background: rgba(0,0,0,0.7); color: #fff; border: 2px solid #888; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 999; transition: 0.3s; }
-    #suggest-btn:hover { background: rgba(0,0,0,0.85); border-color: #9b59b6; }
-  </style>
-  <script>
-    // Búsqueda
-    function buscarJuego() {
-      let input = document.getElementById("search").value.toLowerCase();
-      let botones = document.getElementsByClassName("btn");
-      for (let i = 0; i < botones.length; i++) {
-        let texto = botones[i].innerText.toLowerCase();
-        botones[i].style.display = texto.includes(input) ? "inline-block" : "none";
-      }
-    }
-
-    function abrirJuego(url) {
-      fetch(url + '?t=' + Date.now())
-        .then(r => r.text())
-        .then(t => {
-          let w = window.open('about:blank', '_blank');
-          if(w){ w.document.open(); w.document.write(t); w.document.close(); }
-          else alert('Tu navegador bloqueó la ventana emergente.');
-        });
-    }
-
-    function abrirPadlet() { window.open('https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e', '_blank'); }
-
-    function toggleConfig() { 
-      const panel = document.getElementById("config-panel"); 
-      panel.style.display = panel.style.display === "flex" ? "none" : "flex"; 
-    }
-
-    function cerrarConfig() { document.getElementById("config-panel").style.display = "none"; }
-
-    function cambiarTitulo() {
-      const nuevoTitulo = document.getElementById("nuevo-titulo").value;
-      if(nuevoTitulo.trim() !== "") document.title = nuevoTitulo;
-    }
-
-    function cambiarIcono() {
-      const nuevoIcono = document.getElementById("nuevo-icono").value;
-      if(nuevoIcono.trim() !== "") document.getElementById("favicon").href = nuevoIcono;
-    }
-
-    // Botón de pánico configurando tecla
-    let panicURL = "https://classroom.google.com/";
-    let panicKey = "p"; // tecla por defecto
-
-    function cambiarPanicKey() {
-      const key = document.getElementById("panic-key").value.trim();
-      if(key !== "") {
-        panicKey = key.toLowerCase();
-        alert("Tecla de pánico actualizada a: " + panicKey);
-      }
-    }
-
-    document.addEventListener("keydown", function(e) {
-      if(e.key.toLowerCase() === panicKey) {
-        window.location.href = panicURL;
-      }
-    });
-
-    function cambiarPanicURL() {
-      const url = document.getElementById("panic-url").value.trim();
-      if(url !== "") {
-        panicURL = url;
-        alert("URL de pánico actualizada!");
-      }
-    }
-  </script>
+<meta charset="UTF-8">
+<title>Chistorrita Games</title>
+<link id="pageIcon" rel="icon" href="https://i.pinimg.com/236x/3c/59/3b/3c593bc54a6233a2d423cbf96f77f4a5.jpg">
+<style>
+  body {margin:0; font-family:Arial,sans-serif; color:#fff; display:flex; flex-direction:column; align-items:center; min-height:100vh; padding:20px; background:url('https://i.pinimg.com/originals/c1/bc/3d/c1bc3d6ba8b7a7c9ff037660e2e4f2c2.gif') no-repeat center center fixed; background-size:cover;}
+  header {font-size:45px; font-weight:bold; margin-bottom:15px; text-shadow:0 0 15px #9b59b6,0 0 30px #9b59b6; z-index:1;}
+  #search {width:300px; padding:10px; font-size:16px; border-radius:8px; border:2px solid #888; outline:none; margin-bottom:15px; text-align:center; background:#000; color:#fff; z-index:1;}
+  .buttons {display:flex; flex-wrap:wrap; justify-content:flex-start; gap:8px; width:100%; max-width:1400px; z-index:1;}
+  .btn {padding:10px 20px; font-size:14px; color:#fff; text-decoration:none; display:inline-block; text-align:center; background:rgba(0,0,0,0.7); border:2px solid #888; border-radius:8px; transition:0.3s; width:auto; cursor:pointer; position:relative;}
+  .btn:hover {transform:scale(1.05); border-color:#9b59b6; background:rgba(0,0,0,0.85);}
+  .configBtn {position:absolute; top:20px; right:20px; font-size:20px; cursor:pointer; background:rgba(0,0,0,0.7); border-radius:50%; padding:10px; border:2px solid #888;}
+  .sugerenciasBtn {position:absolute; top:20px; left:20px; font-size:20px; cursor:pointer; background:rgba(0,0,0,0.7); border-radius:50%; padding:10px; border:2px solid #888;}
+  #configPanel {display:none; position:absolute; top:60px; right:20px; background:rgba(0,0,0,0.9); border:2px solid #888; padding:15px; border-radius:10px; z-index:999; width:250px;}
+  #configPanel h3{margin-top:0; text-align:center;}
+  #configPanel button{margin-top:5px; margin-bottom:10px; width:100%; padding:5px;}
+  #logro{display:none; position:fixed; bottom:20px; right:20px; background:#000; padding:10px; border-radius:8px; text-align:center; color:#fff; z-index:999; transition:0.3s;}
+  #easterPanel{display:none; position:fixed; bottom:80px; right:20px; background:rgba(0,0,0,0.9); padding:15px; border-radius:10px; border:2px solid #888; color:#fff; z-index:1000; width:250px; max-height:300px; overflow-y:auto;}
+  #easterPanelClose {position:absolute; top:5px; right:5px; cursor:pointer; font-size:18px;}
+  .estrella{position:absolute; top:5px; right:5px; font-size:16px; cursor:pointer;}
+</style>
 </head>
 <body>
-  <header>Chistorrita Games</header>
-  <input type="text" id="search" placeholder="Buscar juego..." onkeyup="buscarJuego()">
-  <div class="buttons">
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/fn/dom.html')">Doom2</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/fnf/fnf.html')">Fnf Neon</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/infidelity/.fnfinfidelityhtml')">FNF Infidelity</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/db/klk.html')">Dragon Ball Advance</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/pizza/pizza.html')">Pizza Tower</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/pvz/pvz.html')">PVZ</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/sniper/sniper.html')">Sniper</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/tetris/tetris.html')">Tetris</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/whitty/whitty.html')">Fnf Whitty</div>
-    <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/dragon/dragon.html')">Dragon Ball</div>
-  </div>
 
-  <!-- Botón de Sugerencias -->
-  <div id="suggest-btn" onclick="abrirPadlet()">📬</div>
+<header>Chistorrita Games</header>
+<input type="text" id="search" placeholder="Buscar juego..." onkeyup="buscarJuego()">
 
-  <!-- Botón de Configuración -->
-  <div id="config-btn" onclick="toggleConfig()">⚙️</div>
+<!-- Botones arriba -->
+<div class="sugerenciasBtn" onclick="window.open('https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e','_blank')">💬</div>
+<div class="configBtn" onclick="toggleConfig()">⚙️</div>
 
-  <!-- Panel de Configuración -->
-  <div id="config-panel">
-    <span id="close-config" onclick="cerrarConfig()">✖️</span>
+<div class="buttons" id="gamesContainer">
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/fn/dom.html')">Doom2<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/fnf/fnf.html')">Fnf Neon<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/infidelity/.fnfinfidelityhtml')">FNF Infidelity<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/db/klk.html')">Dragon Ball Advance<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/pizza/pizza.html')">Pizza Tower<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/pvz/pvz.html')">PVZ<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/sniper/sniper.html')">Sniper<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/tetris/tetris.html')">Tetris<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/whitty/whitty.html')">Fnf Whitty<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/dragon/dragon.html')">Dragon Ball<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+</div>
 
-    <label>Nuevo nombre de la pestaña:</label>
-    <input type="text" id="nuevo-titulo" placeholder="Escribe un título">
-    <button onclick="cambiarTitulo()">Cambiar nombre</button>
+<!-- Configuración -->
+<div id="configPanel">
+<h3>Ajustes</h3>
 
-    <label>URL del nuevo icono:</label>
-    <input type="text" id="nuevo-icono" placeholder="https://ejemplo.com/icon.png">
-    <button onclick="cambiarIcono()">Cambiar icono</button>
+<label>Título de la pestaña:</label>
+<input type="text" id="newWindowName">
+<button onclick="guardarNombre()">Guardar Nombre</button>
 
-    <label>Tecla de pánico:</label>
-    <input type="text" id="panic-key" maxlength="1" placeholder="Ej: p">
-    <button onclick="cambiarPanicKey()">Actualizar tecla</button>
+<label>Icono de la página (URL):</label>
+<input type="text" id="newIcon">
+<button onclick="guardarIcono()">Guardar Icono</button>
 
-    <label>URL del botón de pánico:</label>
-    <input type="text" id="panic-url" placeholder="https://classroom.google.com/">
-    <button onclick="cambiarPanicURL()">Actualizar URL</button>
-  </div>
+<label>Tecla de pánico:</label>
+<input type="text" id="panicKey" placeholder="ej. P">
+<label>URL de pánico:</label>
+<input type="text" id="panicURL" placeholder="ej. https://classroom.google.com">
+<button onclick="guardarPanico()">Guardar Configuración de Pánico</button>
+
+<button onclick="toggleEaster()">🥚 Easter Eggs</button>
+<button onclick="document.getElementById('configPanel').style.display='none'">❌ Cerrar</button>
+</div>
+
+<!-- Logro -->
+<div id="logro"></div>
+
+<!-- Panel Easter Eggs -->
+<div id="easterPanel">
+<span id="easterPanelClose" onclick="document.getElementById('easterPanel').style.display='none'">❌</span>
+<h4>Logros desbloqueados:</h4>
+<ul id="logrosList"></ul>
+</div>
+
+<script>
+function buscarJuego(){
+  let input=document.getElementById('search').value.toLowerCase();
+  let botones=document.getElementsByClassName('btn');
+  for(let i=0;i<botones.length;i++){
+    let texto=botones[i].innerText.toLowerCase();
+    botones[i].style.display=texto.includes(input)?'inline-block':'none';
+  }
+}
+
+function abrirJuego(url){
+  fetch(url+'?t='+Date.now())
+    .then(res=>res.text())
+    .then(txt=>{
+      let w=window.open('about:blank','_blank');
+      if(w){w.document.open(); w.document.write(txt); w.document.close();}
+      else alert('Ventana bloqueada.');
+    });
+}
+
+function toggleFavorito(e,el){
+  e.stopPropagation();
+  let parent=el.parentElement;
+  let juego=parent.childNodes[0].textContent.trim(); 
+  let favs=JSON.parse(localStorage.getItem('favoritos')||'[]');
+  if(el.innerText==='☆'){ el.innerText='★'; if(!favs.includes(juego)) favs.push(juego);}
+  else{ el.innerText='☆'; favs=favs.filter(x=>x!==juego);}
+  localStorage.setItem('favoritos',JSON.stringify(favs));
+  ordenarFavoritos();
+}
+
+function ordenarFavoritos(){
+  let container=document.getElementById('gamesContainer');
+  let juegos=Array.from(container.children);
+  let favs=JSON.parse(localStorage.getItem('favoritos')||'[]');
+  juegos.sort((a,b)=>{
+    let aName=a.childNodes[0].textContent.trim();
+    let bName=b.childNodes[0].textContent.trim();
+    let aFav=favs.includes(aName)?-1:1;
+    let bFav=favs.includes(bName)?-1:1;
+    return aFav-bFav;
+  });
+  juegos.forEach(j=>container.appendChild(j));
+}
+
+function toggleConfig(){let p=document.getElementById('configPanel'); p.style.display=(p.style.display==='block'?'none':'block');}
+function guardarNombre(){let n=document.getElementById('newWindowName').value||'Blank'; localStorage.setItem('windowName',n); document.title=n;}
+function guardarIcono(){let u=document.getElementById('newIcon').value; if(u){localStorage.setItem('windowIcon',u); document.getElementById('pageIcon').href=u;}}
+
+function guardarPanico(){
+  let key=document.getElementById('panicKey').value;
+  let url=document.getElementById('panicURL').value;
+  localStorage.setItem('panicKey', key);
+  localStorage.setItem('panicURL', url);
+  let contador = parseInt(localStorage.getItem('panicoCount')||'0') + 1;
+  localStorage.setItem('panicoCount', contador);
+  let logro = '¡El Paniqueado!';
+  let logros = JSON.parse(localStorage.getItem('logros')||'[]');
+  if(contador >= 10 && !logros.some(l=>l.nombre===logro)){ mostrarLogro(logro,'https://media.tenor.com/bkl4kbX9g8EAAAAM/speedddd.gif');}
+}
+
+function mostrarLogro(nombre,img){
+  let logroDiv=document.getElementById('logro');
+  logroDiv.innerHTML = `<img src="${img}" width="50"><br>${nombre}`;
+  logroDiv.style.display='block';
+  agregarLogro(nombre,img);
+  setTimeout(()=>{logroDiv.style.display='none';},3000);
+}
+
+function toggleEaster(){document.getElementById('easterPanel').style.display = document.getElementById('easterPanel').style.display==='block'?'none':'block';}
+
+function agregarLogro(nombre, img){
+  let logros=JSON.parse(localStorage.getItem('logros')||'[]');
+  if(!logros.some(l=>l.nombre===nombre)){ logros.push({nombre,img}); localStorage.setItem('logros',JSON.stringify(logros));}
+  mostrarLogros();
+}
+
+function mostrarLogros(){
+  let lista=document.getElementById('logrosList');
+  lista.innerHTML='';
+  let logros=JSON.parse(localStorage.getItem('logros')||'[]');
+  logros.forEach(l=>{
+    let li=document.createElement('li');
+    li.innerHTML = l.img ? `<img src="${l.img}" width="50"><br>${l.nombre}` : l.nombre;
+    lista.appendChild(li);
+  });
+}
+
+window.onload=function(){
+  let savedName=localStorage.getItem('windowName');
+  if(savedName){document.title=savedName; document.getElementById('newWindowName').value=savedName;}
+  let savedIcon=localStorage.getItem('windowIcon');
+  if(savedIcon) document.getElementById('pageIcon').href=savedIcon;
+
+  let favs=JSON.parse(localStorage.getItem('favoritos')||'[]');
+  document.querySelectorAll('.estrella').forEach(star=>{
+    let juegoName=star.parentElement.childNodes[0].textContent.trim();
+    if(favs.includes(juegoName)) star.innerText='★';
+  });
+  ordenarFavoritos();
+  mostrarLogros();
+}
+
+// LOGRO TETO AL ESCRIBIR "teto"
+let keyBuffer = '';
+document.addEventListener('keydown', e=>{
+  keyBuffer += e.key.toLowerCase();
+  if(keyBuffer.length > 4) keyBuffer = keyBuffer.slice(-4);
+  if(keyBuffer === 'teto'){
+    let logros = JSON.parse(localStorage.getItem('logros')||'[]');
+    if(!logros.some(l=>l.nombre==='teto')){
+      mostrarLogro('teto','https://i.namu.wiki/i/VQgCzEUxRfCBbFzTLClclvehH7qvHh0coa1wX4Y8yW2Nmn-zF8IuZLs-WeHHg7uR_ta16yZJ0VuiVh3oO-vXRg.webp');
+      agregarLogro('teto','https://tr.rbxcdn.com/180DAY-36469cf47fecd790f675d16fbc088bab/420/420/WaistAccessory/Webp/noFilter');
+    }
+  }
+});
+</script>
+
 </body>
 </html>
