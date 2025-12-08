@@ -5,26 +5,30 @@
 <!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
 
 
+
+
 <html lang="en">
 <head>
-	<base href="https://cdn.jsdelivr.net/gh/bubbls/fnf-mods@6b6680f79ab8c4e8349a920c2a240c5e7ee689ea/miku/">
-	<meta charset="utf-8">
 	
-	<title>Friday Night Funkin'</title> 
+	<meta charset="utf-8">
+	<base href="https://cdn.jsdelivr.net/gh/bubbls/fnf-mods@dbdf272148d47429d3f019f5f2c226f9d6e140a9/fnaf1/">
+	<title>Game 24891</title>
 	
 	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	
+	<link rel="shortcut icon" type="image/png" href="./favicon.png">
 	
 	
-	<script type="text/javascript" src="Funkin.js"></script>
+	<script type="text/javascript" src="./VsFNaf.js?160322"></script>
 	
 	<script>
 		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, { capture: false, passive: false });
-		if (typeof window.devicePixelRatio !='undefined' && window.devicePixelRatio > 2) {
+		if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
 			var meta = document.getElementById ("viewport");
 			meta.setAttribute ('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
 		}
+		window.addEventListener("keydown", function(e) {if(["Tab","Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {e.preventDefault(); }}, false);
 	</script>
 	
 	<style>
@@ -39,11 +43,11 @@
 			font-style: normal;
 		}
 		@font-face {
-			font-family: 'VCR OSD Mono';
+			font-family: 'STALKER1';
 			src: url('assets/fonts/vcr.eot?#iefix') format('embedded-opentype'),
 			url('assets/fonts/vcr.woff') format('woff'),
 			url('assets/fonts/vcr.ttf') format('truetype'),
-			url('assets/fonts/vcr.svg#VCR%20OSD%20Mono') format('svg');
+			url('assets/fonts/vcr.svg#STALKER1') format('svg');
 			font-weight: normal;
 			font-style: normal;
 		}
@@ -76,8 +80,11 @@
 	<div id="openfl-content"></div>
 	
 	<script type="text/javascript">
-		lime.embed ("Funkin", "openfl-content", 1280, 720, { parameters: {} });
+		lime.embed ("Vs FNaf 1", "openfl-content", 1280, 720, { parameters: {} });
 	</script>
 	
+	<!-- You can find the sources of the game on the website gamebanana.com -->
+	
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"cbcb16b92a904d9c9919cb8e471a8929","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
