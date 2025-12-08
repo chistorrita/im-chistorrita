@@ -64,45 +64,49 @@
   <div class="buttons">
 
     <!-- DOOM -->
-    <button class="btn" onclick="
-      fetch('https://chistorrita.github.io/im-chistorrita/fn/dom.html?t=' + Date.now())
-      .then(r => r.text()).then(html => {
-        let win = window.open('about:blank', '_blank');
-        win.document.open();
-        win.document.write(html);
-        win.document.close();
-      });
-    ">
-      Doom
-    </button>
+    <button class="btn" onclick="openBlank('fn/dom.html')">Doom</button>
 
     <!-- FNF -->
-    <button class="btn" onclick="
-      fetch('https://chistorrita.github.io/im-chistorrita/fnf/fnf.html?t=' + Date.now())
-      .then(r => r.text()).then(html => {
-        let win = window.open('about:blank', '_blank');
-        win.document.open();
-        win.document.write(html);
-        win.document.close();
-      });
-    ">
-      FNF
-    </button>
+    <button class="btn" onclick="openBlank('fnf/fnf.html')">FNF</button>
 
     <!-- DRAGON -->
-    <button class="btn" onclick="
-      fetch('https://chistorrita.github.io/im-chistorrita/dragon/dragon.html?t=' + Date.now())
-      .then(r => r.text()).then(html => {
-        let win = window.open('about:blank', '_blank');
-        win.document.open();
-        win.document.write(html);
-        win.document.close();
-      });
-    ">
-      Dragon
-    </button>
+    <button class="btn" onclick="openBlank('dragon/drragon.html')">Dragon</button>
+
+    <!-- DB -->
+    <button class="btn" onclick="openBlank('db/klk.html')">DB</button>
+
+    <!-- FNF INFIDELITY -->
+    <button class="btn" onclick="openBlank('fnfinfidelity/fnfinfidelity.html')">FNF Infidelity</button>
+
+    <!-- PIZZA -->
+    <button class="btn" onclick="openBlank('pizza/pizza.html')">Pizza</button>
+
+    <!-- PVZ -->
+    <button class="btn" onclick="openBlank('pvz/pvz.html')">PVZ</button>
+
+    <!-- SNIPER -->
+    <button class="btn" onclick="openBlank('sniper/sniper.html')">Sniper</button>
+
+    <!-- TETRIS -->
+    <button class="btn" onclick="openBlank('tetris/tetris.html')">Tetris</button>
+
+    <!-- WHITTY -->
+    <button class="btn" onclick="openBlank('whitty/whitty.html')">Whitty</button>
 
   </div>
+
+  <script>
+    function openBlank(path) {
+      fetch("https://chistorrita.github.io/im-chistorrita/" + path + "?t=" + Date.now())
+        .then(r => r.text())
+        .then(html => {
+          let win = window.open("about:blank", "_blank");
+          win.document.open();
+          win.document.write(html);
+          win.document.close();
+        });
+    }
+  </script>
 
 </body>
 </html>
