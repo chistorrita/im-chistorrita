@@ -28,7 +28,7 @@
 <input type="text" id="search" placeholder="Buscar juego..." onkeyup="buscarJuego()">
 
 <!-- Botones arriba -->
-<div class="sugerenciasBtn" onclick="window.open('https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e','_blank')">💬</div>
+<div class="sugerenciasBtn" onclick="abrirPadlet()">💬</div>
 <div class="configBtn" onclick="toggleConfig()">⚙️</div>
 
 <div class="buttons" id="gamesContainer">
@@ -92,6 +92,24 @@
 </div>
 
 <script>
+function abrirPadlet(){
+  const win = window.open('about:blank', '_blank');
+  if(win){
+    win.document.write(`
+      <html>
+        <body style='margin:0; padding:0; background:black;'>
+          <iframe src='https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e' 
+                  style='width:100vw; height:100vh; border:none;'></iframe>
+        </body>
+      </html>
+    `);
+    win.document.close();
+  } else {
+    alert('Ventana bloqueada');
+  }
+}
+
+// --- Resto de tus scripts originales ---
 function buscarJuego(){
   let input=document.getElementById('search').value.toLowerCase();
   let botones=document.getElementsByClassName('btn');
@@ -139,7 +157,6 @@ function ordenarFavoritos(){
 function toggleConfig(){let p=document.getElementById('configPanel'); p.style.display=(p.style.display==='block'?'none':'block');}
 function guardarNombre(){let n=document.getElementById('newWindowName').value||'Blank'; localStorage.setItem('windowName',n); document.title=n;}
 function guardarIcono(){let u=document.getElementById('newIcon').value; if(u){localStorage.setItem('windowIcon',u); document.getElementById('pageIcon').href=u;}}
-
 function guardarPanico(){
   let key=document.getElementById('panicKey').value;
   let url=document.getElementById('panicURL').value;
@@ -161,13 +178,11 @@ function mostrarLogro(nombre,img){
 }
 
 function toggleEaster(){document.getElementById('easterPanel').style.display = document.getElementById('easterPanel').style.display==='block'?'none':'block';}
-
 function agregarLogro(nombre, img){
   let logros=JSON.parse(localStorage.getItem('logros')||'[]');
   if(!logros.some(l=>l.nombre===nombre)){ logros.push({nombre,img}); localStorage.setItem('logros',JSON.stringify(logros));}
   mostrarLogros();
 }
-
 function mostrarLogros(){
   let lista=document.getElementById('logrosList');
   lista.innerHTML='';
