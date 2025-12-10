@@ -3,239 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <title>Chistorrita Games</title>
-<script src="loader.js"></script>
-<link id="pageIcon" rel="icon" href="https://i.pinimg.com/236x/3c/59/3b/3c593bc54a6233a2d423cbf96f77f4a5.jpg">
+
 <style>
-  body {margin:0; font-family:Arial,sans-serif; color:#fff; display:flex; flex-direction:column; align-items:center; min-height:100vh; padding:20px; background:url('https://i.pinimg.com/originals/c1/bc/3d/c1bc3d6ba8b7a7c9ff037660e2e4f2c2.gif') no-repeat center center fixed; background-size:cover;}
-  header {font-size:45px; font-weight:bold; margin-bottom:15px; text-shadow:0 0 15px #9b59b6,0 0 30px #9b59b6; z-index:1;}
-  #search {width:300px; padding:10px; font-size:16px; border-radius:8px; border:2px solid #888; outline:none; margin-bottom:15px; text-align:center; background:#000; color:#fff; z-index:1;}
-  .buttons {display:flex; flex-wrap:wrap; justify-content:flex-start; gap:8px; width:100%; max-width:1400px; z-index:1;}
-  .btn {padding:10px 20px; font-size:14px; color:#fff; text-decoration:none; display:inline-block; text-align:center; background:rgba(0,0,0,0.7); border:2px solid #888; border-radius:8px; transition:0.3s; width:auto; cursor:pointer; position:relative;}
-  .btn:hover {transform:scale(1.05); border-color:#9b59b6; background:rgba(0,0,0,0.85);}
-  .configBtn {position:absolute; top:20px; right:20px; font-size:20px; cursor:pointer; background:rgba(0,0,0,0.7); border-radius:50%; padding:10px; border:2px solid #888;}
-  .sugerenciasBtn {position:absolute; top:20px; left:20px; font-size:20px; cursor:pointer; background:rgba(0,0,0,0.7); border-radius:50%; padding:10px; border:2px solid #888;}
-  #configPanel {display:none; position:absolute; top:60px; right:20px; background:rgba(0,0,0,0.9); border:2px solid #888; padding:15px; border-radius:10px; z-index:999; width:250px;}
-  #configPanel h3{margin-top:0; text-align:center;}
-  #configPanel button{margin-top:5px; margin-bottom:10px; width:100%; padding:5px;}
-  #logro{display:none; position:fixed; bottom:20px; right:20px; background:#000; padding:10px; border-radius:8px; text-align:center; color:#fff; z-index:999; transition:0.3s;}
-  #easterPanel{display:none; position:fixed; bottom:80px; right:20px; background:rgba(0,0,0,0.9); padding:15px; border-radius:10px; border:2px solid #888; color:#fff; z-index:1000; width:250px; max-height:300px; overflow-y:auto;}
-  #easterPanelClose {position:absolute; top:5px; right:5px; cursor:pointer; font-size:18px;}
-  .estrella{position:absolute; top:5px; right:5px; font-size:16px; cursor:pointer;}
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: white;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 40px;
+    }
+
+    .container {
+        width: 95%;
+        margin: auto;
+        padding-bottom: 40px;
+    }
+
+    .btn {
+        width: 100%;
+        background: #222;
+        padding: 18px;
+        font-size: 22px;
+        margin: 10px 0;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.15s;
+    }
+
+    .btn:hover {
+        background: #333;
+    }
+
+    .estrella {
+        font-size: 26px;
+        cursor: pointer;
+    }
 </style>
+
+<script>
+function abrirJuegoBlob(ruta) {
+    const juegoURL = "https://chistorrita.github.io/im-chistorrita/" + ruta;
+
+    const loader =
+        "https://chistorrita.github.io/im-chistorrita/loader.html?juego=" +
+        encodeURIComponent(juegoURL);
+
+    window.open(loader, "_blank");
+}
+
+function toggleFavorito(ev, estrella) {
+    ev.stopPropagation();
+    estrella.innerText = estrella.innerText === "☆" ? "★" : "☆";
+}
+</script>
+
 </head>
 <body>
 
-<header>Chistorrita Games</header>
-<input type="text" id="search" placeholder="Buscar juego..." onkeyup="buscarJuego()">
+<h1>Chistorrita Games</h1>
 
-<!-- Botones arriba -->
-<div class="sugerenciasBtn" onclick="abrirPadlet()">💬</div>
-<div class="configBtn" onclick="toggleConfig()">⚙️</div>
+<div class="container">
 
-<div class="buttons" id="gamesContainer">
-  <!-- Juegos antiguos -->
-  <div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/fn/dom.html')">Doom2<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('fn/dom.html')">Doom2<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/db/klk.html')">Dragon Ball Advance<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('db/klk.html')">Dragon Ball Advance<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/pizza/pizza.html')">Pizza Tower<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('pizza/pizza.html')">Pizza Tower<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/pvz/pvz.html')">Plantas vs Zombies<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('pvz/pvz.html')">Plantas vs Zombies<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/tetris/tetris.html')">Tetris<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('tetris/tetris.html')">Tetris<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/whitty/whitty.html')">Fnf Whitty<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('whitty/whitty.html')">Fnf Whitty<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/dragon/dragon.html')">Dragon Ball<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('dragon/dragon.html')">Dragon Ball<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/fnfmariomadnes/madnes.html')">FNF Mario Madness<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('fnfmariomadnes/madnes.html')">FNF Mario Madness<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/herobrine/herobrine.html')">Fnf Herobrine<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('herobrine/herobrine.html')">Fnf Herobrine<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/apple/apple.html')">Apple<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('apple/apple.html')">Apple<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/camello/camello.html')">Camello<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('camello/camello.html')">Camello<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/agoti/agoti.html')">Agoti<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('agoti/agoti.html')">Agoti<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/animation/animation.html')">Animation<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('animation/animation.html')">Animation<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/doki/doki.html')">Doki<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('doki/doki.html')">Doki<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/fnf1/fna1.html')">FNF1<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('fnf1/fna1.html')">FNF1<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/fnf3/fnf3.html')">FNF3<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('fnf3/fnf3.html')">FNF3<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/miku/miku.html')">Miku<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('miku/miku.html')">Miku<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/tails/tails.html')">Tails<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('tails/tails.html')">Tails<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/twiddlefinger/twiddlefinger.html')">Twiddlefinger<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('twiddlefinger/twiddlefinger.html')">Twiddlefinger<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/bsides/fnf.html')">FNF B-Sides<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('bsides/fnf.html')">FNF B-Sides<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/miki/miki.html')">FNF Infidelity Wednesday<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('miki/miki.html')">FNF Infidelity Wednesday<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-<div class="btn" onclick="abrirJuegoBlob('https://chistorrita.github.io/im-chistorrita/dsides/dsides.html')">DSides<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+    <div class="btn" onclick="abrirJuegoBlob('dsides/dsides.html')">DSides<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
 
-
-
-<!-- Configuración -->
-<div id="configPanel">
-<h3>Ajustes</h3>
-<label>Título de la pestaña:</label>
-<input type="text" id="newWindowName">
-<button onclick="guardarNombre()">Guardar Nombre</button>
-
-<label>Icono de la página (URL):</label>
-<input type="text" id="newIcon">
-<button onclick="guardarIcono()">Guardar Icono</button>
-
-<label>Tecla de pánico:</label>
-<input type="text" id="panicKey" placeholder="ej. P">
-<label>URL de pánico:</label>
-<input type="text" id="panicURL" placeholder="ej. https://classroom.google.com">
-<button onclick="guardarPanico()">Guardar Configuración de Pánico</button>
-
-<button onclick="toggleEaster()">🥚 Easter Eggs</button>
-<button onclick="toggleConfig()">❌ Cerrar</button>
 </div>
-
-<!-- Logro -->
-<div id="logro"></div>
-
-<!-- Panel Easter Eggs -->
-<div id="easterPanel">
-<span id="easterPanelClose" onclick="toggleEaster()">❌</span>
-<h4>Logros desbloqueados:</h4>
-<ul id="logrosList"></ul>
-</div>
-
-<script>
-function abrirPadlet(){
-  const win = window.open('about:blank', '_blank');
-  if(win){
-    win.document.write(`<html><body style='margin:0; padding:0; background:black;'><iframe src='https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e' style='width:100vw; height:100vh; border:none;'></iframe></body></html>`);
-    win.document.close();
-  } else { alert('Ventana bloqueada'); }
-}
-
-function buscarJuego(){
-  let input=document.getElementById('search').value.toLowerCase();
-  let botones=document.getElementsByClassName('btn');
-  for(let i=0;i<botones.length;i++){
-    botones[i].style.display = botones[i].innerText.toLowerCase().includes(input) ? 'inline-block' : 'none';
-  }
-}
-
-function abrirJuego(url){
-  let w = window.open(url+'?t='+Date.now(),'_blank');
-  if(!w) alert('Ventana bloqueada.');
-}
-
-function toggleFavorito(e,el){
-  e.stopPropagation();
-  let parent=el.parentElement;
-  let juego=parent.childNodes[0].textContent.trim();
-  let favs=JSON.parse(localStorage.getItem('favoritos')||'[]');
-  if(el.innerText==='☆'){ el.innerText='★'; if(!favs.includes(juego)) favs.push(juego);}
-  else{ el.innerText='☆'; favs=favs.filter(x=>x!==juego);}
-  localStorage.setItem('favoritos',JSON.stringify(favs));
-  ordenarFavoritos();
-}
-
-function ordenarFavoritos(){
-  let container=document.getElementById('gamesContainer');
-  let juegos=Array.from(container.children);
-  let favs=JSON.parse(localStorage.getItem('favoritos')||'[]');
-  juegos.sort((a,b)=>{
-    let aFav=favs.includes(a.childNodes[0].textContent.trim())?-1:1;
-    let bFav=favs.includes(b.childNodes[0].textContent.trim())?-1:1;
-    return aFav-bFav;
-  });
-  juegos.forEach(j=>container.appendChild(j));
-}
-
-function toggleConfig(){let p=document.getElementById('configPanel'); p.style.display=(p.style.display==='block'?'none':'block');}
-function guardarNombre(){let n=document.getElementById('newWindowName').value||'Blank'; localStorage.setItem('windowName',n); document.title=n;}
-function guardarIcono(){let u=document.getElementById('newIcon').value; if(u){localStorage.setItem('windowIcon',u); document.getElementById('pageIcon').href=u;}}
-function guardarPanico(){ 
-  let key=document.getElementById('panicKey').value.toLowerCase();
-  let url=document.getElementById('panicURL').value;
-  if(!key || key.length!==1){alert("Pon solo UNA tecla."); return;}
-  if(!url){alert("Pon una URL válida."); return;}
-  localStorage.setItem('panicKey',key);
-  localStorage.setItem('panicURL',url);
-  alert("Listo ñaño ✔");
-}
-
-function mostrarLogro(nombre,img){
-  let logroDiv=document.getElementById('logro');
-  logroDiv.innerHTML=`<img src="${img}" width="50"><br>${nombre}`;
-  logroDiv.style.display='block';
-  agregarLogro(nombre,img);
-  setTimeout(()=>{logroDiv.style.display='none';},3000);
-}
-
-function toggleEaster(){ 
-  let p=document.getElementById('easterPanel'); 
-  p.style.display=(p.style.display==='block'?'none':'block');
-}
-
-function agregarLogro(nombre,img){
-  let logros=JSON.parse(localStorage.getItem('logros')||'[]');
-  if(!logros.some(l=>l.nombre===nombre)){ logros.push({nombre,img}); localStorage.setItem('logros',JSON.stringify(logros));}
-  mostrarLogros();
-}
-
-function mostrarLogros(){
-  let lista=document.getElementById('logrosList');
-  lista.innerHTML='';
-  let logros=JSON.parse(localStorage.getItem('logros')||'[]');
-  logros.forEach(l=>{
-    let li=document.createElement('li');
-    li.innerHTML = l.img ? `<img src="${l.img}" width="50"><br>${l.nombre}` : l.nombre;
-    lista.appendChild(li);
-  });
-}
-
-window.onload=function(){
-  let savedName=localStorage.getItem('windowName');
-  if(savedName){document.title=savedName; document.getElementById('newWindowName').value=savedName;}
-  let savedIcon=localStorage.getItem('windowIcon');
-  if(savedIcon) document.getElementById('pageIcon').href=savedIcon;
-
-  let favs=JSON.parse(localStorage.getItem('favoritos')||'[]');
-  document.querySelectorAll('.estrella').forEach(star=>{
-    let juegoName=star.parentElement.childNodes[0].textContent.trim();
-    if(favs.includes(juegoName)) star.innerText='★';
-  });
-  ordenarFavoritos();
-  mostrarLogros();
-}
-
-// LOGRO TETO
-let keyBuffer='';
-document.addEventListener('keydown',e=>{
-  keyBuffer += e.key.toLowerCase();
-  if(keyBuffer.length>4) keyBuffer=keyBuffer.slice(-4);
-  if(keyBuffer==='teto'){
-    let logros=JSON.parse(localStorage.getItem('logros')||'[]');
-    if(!logros.some(l=>l.nombre==='teto')){
-      mostrarLogro('teto','https://i.namu.wiki/i/VQgCzEUxRfCBbFzTLClclvehH7qvHh0coa1wX4Y8yW2Nmn-zF8IuZLs-WeHHg7uR_ta16yZJ0VuiVh3oO-vXRg.webp');
-      agregarLogro('teto','https://tr.rbxcdn.com/180DAY-36469cf47fecd790f675d16fbc088bab/420/420/WaistAccessory/Webp/noFilter');
-    }
-  }
-});
-
-// TECLA DE PÁNICO
-document.addEventListener('keydown', e=>{
-  let panicKey=localStorage.getItem('panicKey');
-  let panicURL=localStorage.getItem('panicURL');
-  if(!panicKey||!panicURL) return;
-  if(e.key.toLowerCase()===panicKey) window.location.href=panicURL;
-});
-</script>
 
 </body>
 </html>

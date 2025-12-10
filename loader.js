@@ -1,21 +1,50 @@
-// Abre juegos como BLOB cargándolos desde GitHub
-async function abrirJuegoBlob(ruta) {
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cargando...</title>
+
+<style>
+body {
+    background: #111;
+    color: white;
+    text-align: center;
+    font-family: Arial;
+    padding-top: 40px;
+}
+</style>
+
+</head>
+<body>
+
+<h2>Cargando juego...</h2>
+
+<script>
+async function loadGame() {
+    const params = new URLSearchParams(window.location.search);
+    const gameURL = params.get("juego");
+
+    if (!gameURL) {
+        document.body.innerHTML = "<h3>Error: Falta parámetro 'juego'</h3>";
+        return;
+    }
+
     try {
-        // Cargar el archivo HTML del juego
-        let respuesta = await fetch(ruta);
-        let texto = await respuesta.text();
+        const response = await fetch(gameURL);
+        const text = await response.text();
 
-        // Convertir el HTML en un Blob
-        let blob = new Blob([texto], { type: "text/html" });
+        const blob = new Blob([text], { type: "text/html" });
+        const blobURL = URL.createObjectURL(blob);
 
-        // Crear URL tipo blob:
-        let blobURL = URL.createObjectURL(blob);
+        window.location.href = blobURL;
 
-        // Abrir en nueva ventana
-        let w = window.open(blobURL, "_blank");
-        if (!w) alert("La ventana fue bloqueada.");
-
-    } catch (e) {
-        alert("Error cargando el juego: " + e);
+    } catch (error) {
+        document.body.innerHTML = "<h3>Error cargando el juego</h3><br>" + error;
     }
 }
+
+loadGame();
+</script>
+
+</body>
+</html>
