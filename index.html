@@ -35,7 +35,7 @@
   <!-- Juegos antiguos -->
   <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/fn/dom.html')">Doom2<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
   <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/fnf/fnf.html')">Fnf Neon<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/infidelity/.fnfinfidelityhtml')">FNF Infidelity<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
+  <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/infidelity/fnfinfidelity.html')">FNF Infidelity<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
   <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/db/klk.html')">Dragon Ball Advance<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
   <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/pizza/pizza.html')">Pizza Tower<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
   <div class="btn" onclick="abrirJuego('https://chistorrita.github.io/im-chistorrita/pvz/pvz.html')">Plantas vs zombies<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
@@ -62,7 +62,6 @@
 <!-- Configuración -->
 <div id="configPanel">
 <h3>Ajustes</h3>
-
 <label>Título de la pestaña:</label>
 <input type="text" id="newWindowName">
 <button onclick="guardarNombre()">Guardar Nombre</button>
@@ -78,7 +77,7 @@
 <button onclick="guardarPanico()">Guardar Configuración de Pánico</button>
 
 <button onclick="toggleEaster()">🥚 Easter Eggs</button>
-<button onclick="document.getElementById('configPanel').style.display='none'">❌ Cerrar</button>
+<button onclick="toggleConfig()">❌ Cerrar</button>
 </div>
 
 <!-- Logro -->
@@ -86,7 +85,7 @@
 
 <!-- Panel Easter Eggs -->
 <div id="easterPanel">
-<span id="easterPanelClose" onclick="document.getElementById('easterPanel').style.display='none'">❌</span>
+<span id="easterPanelClose" onclick="toggleEaster()">❌</span>
 <h4>Logros desbloqueados:</h4>
 <ul id="logrosList"></ul>
 </div>
@@ -95,44 +94,28 @@
 function abrirPadlet(){
   const win = window.open('about:blank', '_blank');
   if(win){
-    win.document.write(`
-      <html>
-        <body style='margin:0; padding:0; background:black;'>
-          <iframe src='https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e' 
-                  style='width:100vw; height:100vh; border:none;'></iframe>
-        </body>
-      </html>
-    `);
+    win.document.write(`<html><body style='margin:0; padding:0; background:black;'><iframe src='https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e' style='width:100vw; height:100vh; border:none;'></iframe></body></html>`);
     win.document.close();
-  } else {
-    alert('Ventana bloqueada');
-  }
+  } else { alert('Ventana bloqueada'); }
 }
 
-// --- Resto de tus scripts originales ---
 function buscarJuego(){
   let input=document.getElementById('search').value.toLowerCase();
   let botones=document.getElementsByClassName('btn');
   for(let i=0;i<botones.length;i++){
-    let texto=botones[i].innerText.toLowerCase();
-    botones[i].style.display=texto.includes(input)?'inline-block':'none';
+    botones[i].style.display = botones[i].innerText.toLowerCase().includes(input) ? 'inline-block' : 'none';
   }
 }
 
 function abrirJuego(url){
-  fetch(url+'?t='+Date.now())
-    .then(res=>res.text())
-    .then(txt=>{
-      let w=window.open('about:blank','_blank');
-      if(w){w.document.open(); w.document.write(txt); w.document.close();}
-      else alert('Ventana bloqueada.');
-    });
+  let w = window.open(url+'?t='+Date.now(),'_blank');
+  if(!w) alert('Ventana bloqueada.');
 }
 
 function toggleFavorito(e,el){
   e.stopPropagation();
   let parent=el.parentElement;
-  let juego=parent.childNodes[0].textContent.trim(); 
+  let juego=parent.childNodes[0].textContent.trim();
   let favs=JSON.parse(localStorage.getItem('favoritos')||'[]');
   if(el.innerText==='☆'){ el.innerText='★'; if(!favs.includes(juego)) favs.push(juego);}
   else{ el.innerText='☆'; favs=favs.filter(x=>x!==juego);}
@@ -145,10 +128,8 @@ function ordenarFavoritos(){
   let juegos=Array.from(container.children);
   let favs=JSON.parse(localStorage.getItem('favoritos')||'[]');
   juegos.sort((a,b)=>{
-    let aName=a.childNodes[0].textContent.trim();
-    let bName=b.childNodes[0].textContent.trim();
-    let aFav=favs.includes(aName)?-1:1;
-    let bFav=favs.includes(bName)?-1:1;
+    let aFav=favs.includes(a.childNodes[0].textContent.trim())?-1:1;
+    let bFav=favs.includes(b.childNodes[0].textContent.trim())?-1:1;
     return aFav-bFav;
   });
   juegos.forEach(j=>container.appendChild(j));
@@ -157,32 +138,35 @@ function ordenarFavoritos(){
 function toggleConfig(){let p=document.getElementById('configPanel'); p.style.display=(p.style.display==='block'?'none':'block');}
 function guardarNombre(){let n=document.getElementById('newWindowName').value||'Blank'; localStorage.setItem('windowName',n); document.title=n;}
 function guardarIcono(){let u=document.getElementById('newIcon').value; if(u){localStorage.setItem('windowIcon',u); document.getElementById('pageIcon').href=u;}}
-function guardarPanico(){
-  let key=document.getElementById('panicKey').value;
+function guardarPanico(){ 
+  let key=document.getElementById('panicKey').value.toLowerCase();
   let url=document.getElementById('panicURL').value;
-  localStorage.setItem('panicKey', key);
-  localStorage.setItem('panicURL', url);
-  let contador = parseInt(localStorage.getItem('panicoCount')||'0') + 1;
-  localStorage.setItem('panicoCount', contador);
-  let logro = '¡El Paniqueado!';
-  let logros = JSON.parse(localStorage.getItem('logros')||'[]');
-  if(contador >= 10 && !logros.some(l=>l.nombre===logro)){ mostrarLogro(logro,'https://media.tenor.com/bkl4kbX9g8EAAAAM/speedddd.gif');}
+  if(!key || key.length!==1){alert("Pon solo UNA tecla."); return;}
+  if(!url){alert("Pon una URL válida."); return;}
+  localStorage.setItem('panicKey',key);
+  localStorage.setItem('panicURL',url);
+  alert("Listo ñaño ✔");
 }
 
 function mostrarLogro(nombre,img){
   let logroDiv=document.getElementById('logro');
-  logroDiv.innerHTML = `<img src="${img}" width="50"><br>${nombre}`;
+  logroDiv.innerHTML=`<img src="${img}" width="50"><br>${nombre}`;
   logroDiv.style.display='block';
   agregarLogro(nombre,img);
   setTimeout(()=>{logroDiv.style.display='none';},3000);
 }
 
-function toggleEaster(){document.getElementById('easterPanel').style.display = document.getElementById('easterPanel').style.display==='block'?'none':'block';}
-function agregarLogro(nombre, img){
+function toggleEaster(){ 
+  let p=document.getElementById('easterPanel'); 
+  p.style.display=(p.style.display==='block'?'none':'block');
+}
+
+function agregarLogro(nombre,img){
   let logros=JSON.parse(localStorage.getItem('logros')||'[]');
   if(!logros.some(l=>l.nombre===nombre)){ logros.push({nombre,img}); localStorage.setItem('logros',JSON.stringify(logros));}
   mostrarLogros();
 }
+
 function mostrarLogros(){
   let lista=document.getElementById('logrosList');
   lista.innerHTML='';
@@ -209,18 +193,26 @@ window.onload=function(){
   mostrarLogros();
 }
 
-// LOGRO TETO AL ESCRIBIR "teto"
-let keyBuffer = '';
-document.addEventListener('keydown', e=>{
+// LOGRO TETO
+let keyBuffer='';
+document.addEventListener('keydown',e=>{
   keyBuffer += e.key.toLowerCase();
-  if(keyBuffer.length > 4) keyBuffer = keyBuffer.slice(-4);
-  if(keyBuffer === 'teto'){
-    let logros = JSON.parse(localStorage.getItem('logros')||'[]');
+  if(keyBuffer.length>4) keyBuffer=keyBuffer.slice(-4);
+  if(keyBuffer==='teto'){
+    let logros=JSON.parse(localStorage.getItem('logros')||'[]');
     if(!logros.some(l=>l.nombre==='teto')){
       mostrarLogro('teto','https://i.namu.wiki/i/VQgCzEUxRfCBbFzTLClclvehH7qvHh0coa1wX4Y8yW2Nmn-zF8IuZLs-WeHHg7uR_ta16yZJ0VuiVh3oO-vXRg.webp');
       agregarLogro('teto','https://tr.rbxcdn.com/180DAY-36469cf47fecd790f675d16fbc088bab/420/420/WaistAccessory/Webp/noFilter');
     }
   }
+});
+
+// TECLA DE PÁNICO
+document.addEventListener('keydown', e=>{
+  let panicKey=localStorage.getItem('panicKey');
+  let panicURL=localStorage.getItem('panicURL');
+  if(!panicKey||!panicURL) return;
+  if(e.key.toLowerCase()===panicKey) window.location.href=panicURL;
 });
 </script>
 
