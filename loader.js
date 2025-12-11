@@ -1,13 +1,20 @@
-async function abrirJuegoBlob(ruta) {
+<script>
+  async function abrirJuegoCDN(juego) {
     try {
-        if(ruta.endsWith('/')) ruta += 'index.html';
-        let respuesta = await fetch(ruta);
-        let texto = await respuesta.text();
-        let blob = new Blob([texto], { type: "text/html" });
-        let blobURL = URL.createObjectURL(blob);
-        let w = window.open(blobURL, "_blank");
-        if(!w) alert("La ventana fue bloqueada.");
-    } catch(e) {
-        alert("Error cargando el juego: " + e);
+      const url = `https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@games/${juego}/index.html?t=${Date.now()}`;
+      const respuesta = await fetch(url);
+      if (!respuesta.ok) throw new Error("No se pudo cargar el juego");
+      const texto = await respuesta.text();
+      const w = window.open("about:blank", "_blank");
+      if (w) {
+        w.document.open();
+        w.document.write(texto);
+        w.document.close();
+      } else {
+        alert("La ventana fue bloqueada.");
+      }
+    } catch (e) {
+      alert("Error cargando el juego: " + e);
     }
-}
+  }
+</script>
