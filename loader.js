@@ -1,29 +1,23 @@
-async function abrirJuegoBlob(rutaJuego){
-  try{
-    let contenido;
+// Abre juegos igual que GN-Math (cargando el index y convirtiéndolo en blob)
+async function abrirJuegoBlob(carpeta){
+    try {
+        // ruta del index dentro de la carpeta
+        const ruta = "games/" + carpeta + "/index.html";
 
-    // Detectar si estamos en file:// (local)
-    if(location.protocol === "file:"){
-      contenido = await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", rutaJuego);
-        xhr.onload = () => xhr.status < 400 ? resolve(xhr.responseText) : reject("No se pudo cargar el juego");
-        xhr.onerror = () => reject("Error al cargar el juego");
-        xhr.send();
-      });
-    } else {
-      // Servidor/CDN
-      const respuesta = await fetch(rutaJuego + "?t=" + Date.now());
-      if(!respuesta.ok) throw new Error("No se pudo cargar el juego");
-      contenido = await respuesta.text();
+        // obtener contenido del index
+        const res = await fetch(ruta);
+        if(!res.ok) throw new Error("No se pudo cargar el index.html");
+
+        const html = await res.text();
+
+        // crear blob
+        const blob = new Blob([html], { type: "text/html" });
+        const urlBlob = URL.createObjectURL(blob);
+
+        // abrir como blob:xxxx igual que GN-Math
+        const w = window.open(urlBlob, "_blank");
+        if (!w) alert("Pop-up bloqueado");
+    } catch(err){
+        alert("Error cargando el juego: " + err.message);
     }
-
-    // Crear blob y abrir en nueva ventana
-    const blob = new Blob([contenido], { type: "text/html" });
-    const urlBlob = URL.createObjectURL(blob);
-    const w = window.open(urlBlob, "_blank");
-    if(!w) alert("Ventana bloqueada.");
-  } catch(e){
-    alert("Error cargando el juego: " + e);
-  }
 }
