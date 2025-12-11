@@ -2,31 +2,22 @@
   {
     "id": 1,
     "name": "Agoti",
-    "author": "Christopher",
-    "authorLink": "#",
-    "cover": "{COVER_URL}/placeholder.png",
-    "url": "{HTML_URL}/agoti.html",
-    "featured": true,
-    "special": ["fun"]
+    "url": "https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/html/agoti.html",
+    "cover": "https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/covers/placeholder.png",
+    "featured": true
   },
   {
     "id": 2,
     "name": "Animation",
-    "author": "Christopher",
-    "authorLink": "#",
-    "cover": "{COVER_URL}/placeholder.png",
-    "url": "{HTML_URL}/animation.html",
-    "featured": true,
-    "special": ["animation"]
+    "url": "https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/html/animation.html",
+    "cover": "https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/covers/placeholder.png",
+    "featured": true
   },
   {
     "id": 3,
     "name": "BSides",
-    "author": "Christopher",
-    "authorLink": "#",
-    "cover": "{COVER_URL}/placeholder.png",
-    "url": "{HTML_URL}/bsides.html",
-    "featured": false,
-    "special": ["challenge"]
+    "url": "https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/html/bsides.html",
+    "cover": "https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/covers/placeholder.png",
+    "featured": false
   }
 ]

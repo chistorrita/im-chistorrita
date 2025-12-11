@@ -6,9 +6,10 @@ let zones = [];
 let popularityData = {};
 
 // URLs locales
-const coverURL = 'assets/covers';
-const htmlURL = 'assets/html';
-let zonesURL = 'zones.json';
+let zonesURL = 'https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/zones.json';
+const htmlURL = 'https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/html';
+const coverURL = 'https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/covers';
+
 
 async function listZones(){
   try{
