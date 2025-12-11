@@ -1,63 +1,27 @@
-<!DOCTYPE html>
-<main>
-<details id="featuredZonesWrapper" open>
-<summary id="allZonesSummary">Featured Zones</summary>
-<div id="featuredZones" class="zone-container"></div>
-</details>
-
-
-<hr>
-
-
-<details id="allZonesWrapper" open>
-<summary id="allSummary">All Zones</summary>
-<div id="container">Loading...</div>
-</details>
-</main>
-
-
-<div id="zoneViewer" style="display:none;">
-<div class="zone-header">
-<div class="zone-title">
-<h2 id="zoneName">zone</h2>
-<span id="zoneId" style="display:none"></span>
-<a id="zoneAuthor" href="#" target="_blank">by Author</a>
-</div>
-<div class="zone-controls">
-<button onclick="fullscreenZone()">Fullscreen</button>
-<button onclick="aboutBlank()">Open in New Tab</button>
-<button onclick="downloadZone()">Download</button>
-<button onclick="closeZone()">Close</button>
-</div>
-</div>
-<iframe id="zoneFrame"></iframe>
-</div>
-
-
-<div id="popupOverlay" style="display:none;">
-<div class="popup">
-<div class="popup-header"><h3 id="popupTitle">Title</h3><button id="popupClose" onclick="closePopup()">×</button></div>
-<div id="popupBody"></div>
-</div>
-</div>
-
-
-<footer>
-<div class="footer-links">
-<a href="#" onclick="loadDMCA();return false;">DMCA</a>
-<a href="#" onclick="showContact();return false;">Contact</a>
-<a href="#" onclick="loadPrivacy();return false;">Privacy Policy</a>
-<a href="javascript:saveData()">Export Data</a>
-<a href="#" onclick="document.getElementById('importData').click();return false;">Import Data</a>
-<input type="file" id="importData" style="display:none" onchange="loadData(event)">
-</div>
-</footer>
-
-
-<script src="script.js"></script>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
 <script>
-const search = new URLSearchParams(window.location.search);
-if (search.get('privacy')) loadPrivacy();
+  // autoupdate behavior: fetch singlefile and replace document
+  (async function() {
+    try {
+      const r = await fetch('https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/singlefile.html?t=' + Date.now());
+      const html = await r.text();
+      document.documentElement.innerHTML = html;
+      // re-run inline scripts
+      document.documentElement.querySelectorAll('script').forEach(s => {
+        const ns = document.createElement('script');
+        if (s.src) ns.src = s.src; else ns.textContent = s.textContent;
+        document.body.appendChild(ns);
+      });
+    } catch(e) {
+      console.error('autoupdate failed', e);
+    }
+  })();
 </script>
 </body>
 </html>

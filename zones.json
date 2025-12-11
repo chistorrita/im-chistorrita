@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Agoti",
+    "author": "Christopher",
+    "authorLink": "#",
+    "cover": "{COVER_URL}/placeholder.png",
+    "url": "{HTML_URL}/agoti.html",
+    "featured": true,
+    "special": ["fun"]
+  },
+  {
+    "id": 2,
+    "name": "Animation",
+    "author": "Christopher",
+    "authorLink": "#",
+    "cover": "{COVER_URL}/placeholder.png",
+    "url": "{HTML_URL}/animation.html",
+    "featured": true,
+    "special": ["animation"]
+  },
+  {
+    "id": 3,
+    "name": "BSides",
+    "author": "Christopher",
+    "authorLink": "#",
+    "cover": "{COVER_URL}/placeholder.png",
+    "url": "{HTML_URL}/bsides.html",
+    "featured": false,
+    "special": ["challenge"]
+  }
+]

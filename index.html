@@ -1,295 +1,102 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chistorrita Games</title>
-<link id="pageIcon" rel="icon" href="https://i.pinimg.com/236x/3c/59/3b/3c593bc54a6233a2d423cbf96f77f4a5.jpg">
-<style>
-  :root{
-    --bg:#050007; --panel:#0b0b0f; --muted:#888; --accent:#9b59b6;
-    --btn-bg:rgba(0,0,0,0.65);
-  }
-  html,body{margin:0;height:100%;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:#fff}
-  header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:linear-gradient(180deg,rgba(0,0,0,0.35),transparent);box-shadow:0 2px 8px rgba(0,0,0,0.4)}
-  .brand{font-weight:700;font-size:22px;letter-spacing:1px}
-  .controls{display:flex;gap:10px;align-items:center}
-  #search{width:320px;padding:8px 12px;border-radius:8px;border:1px solid var(--muted);background:#000;color:#fff}
-  .configBtn,.sugerBtn{background:var(--btn-bg);border:1px solid var(--muted);padding:8px;border-radius:8px;cursor:pointer}
-  main{display:flex;gap:16px;padding:16px;box-sizing:border-box;height:calc(100vh - 88px)}
-  /* left column - list */
-  .left{width:480px;max-width:48%;display:flex;flex-direction:column;gap:12px}
-  .buttons{display:flex;flex-wrap:wrap;gap:8px;padding:8px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);border-radius:8px;height:420px;overflow:auto}
-  .btn{position:relative;padding:10px 14px;background:var(--btn-bg);border:1px solid var(--muted);border-radius:8px;cursor:pointer;min-width:150px}
-  .btn:hover{transform:translateY(-3px);border-color:var(--accent)}
-  .estrella{position:absolute;right:8px;top:6px;cursor:pointer}
-  /* right column - iframe */
-  .right{flex:1;display:flex;flex-direction:column;gap:10px}
-  #gameFrameWrap{flex:1;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);background:#000}
-  #gameFrame{width:100%;height:100%;border:0;background:#000}
-  .frameControls{display:flex;gap:8px;align-items:center}
-  .smallBtn{padding:8px 10px;border-radius:8px;border:1px solid var(--muted);background:var(--btn-bg);cursor:pointer}
-  /* config panel */
-  #configPanel{display:none;position:fixed;right:18px;top:70px;background:var(--panel);padding:14px;border:1px solid rgba(255,255,255,0.06);border-radius:8px;z-index:999;width:260px}
-  #logro{position:fixed;bottom:18px;right:18px;background:#000;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);display:none;z-index:999}
-  /* easter panel */
-  #easterPanel{display:none;position:fixed;bottom:80px;right:18px;background:var(--panel);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);z-index:999;width:240px;max-height:260px;overflow:auto}
-  footer{padding:12px;text-align:center;color:var(--muted);font-size:13px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>chistorrita</title>
+  <meta name="description" content="chistorrita — Play fast, no downloads">
+  <link rel="icon" href="/favicon.png">
+
+  <!-- Optional: Replace or remove ads/analytics -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=REPLACE_AD_CLIENT" crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=REPLACE_GTAG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || []; 
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date()); 
+    gtag('config','REPLACE_GTAG');
+  </script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-<header>
-  <div class="brand">Chistorrita Games</div>
-  <div class="controls">
-    <input id="search" placeholder="Buscar juego..." oninput="buscarJuego()" />
-    <button class="sugerBtn" title="Sugerencias" onclick="abrirPadlet()">Sugerencias</button>
-    <button class="configBtn" title="Ajustes" onclick="toggleConfig()">Ajustes</button>
-  </div>
-</header>
-
-<main>
-  <section class="left">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <strong>Juegos</strong>
-      <small style="color:var(--muted)">Favoritos arriba</small>
-    </div>
-
-    <div class="buttons" id="gamesContainer">
-      <!-- Botones listos: rutas relativas a la raíz -->
-      <div class="btn" onclick="abrirJuego('games/fn/index.html')">Doom2<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/db/index.html')">Dragon Ball Advance<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/pizza/index.html')">Pizza Tower<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/pvz/index.html')">Plantas vs Zombies<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/tetris/index.html')">Tetris<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/whitty/index.html')">Fnf Whitty<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/dragon/index.html')">Dragon Ball<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-
-      <div class="btn" onclick="abrirJuego('games/fnfmariomadnes/index.html')">FNF Mario Madness<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/herobrine/hindex.html')">Fnf Herobrine<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/apple/index.html')">Apple<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/camello/index.html')">Camello<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/agoti/index.html')">Agoti<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-
-      <div class="btn" onclick="abrirJuego('games/animation/index.html')">Animation<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/doki/index.html')">Doki<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-
-      <div class="btn" onclick="abrirJuego('games/fnf1/index.html')">FNF1<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/fnf3/index.html')">FNF3<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-
-      <div class="btn" onclick="abrirJuego('games/miku/index.html')">Miku<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/tails/index.html')">Tails<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/twiddlefinger/index.html')">Twiddlefinger<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-
-      <div class="btn" onclick="abrirJuego('games/bsides/index.html')">FNF B-Sides<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/miki/index.html')">FNF Infidelity Wednesday<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-      <div class="btn" onclick="abrirJuego('games/dsides/index.html')">DSides<span class="estrella" onclick="toggleFavorito(event,this)">☆</span></div>
-    </div>
-
-    <div style="display:flex;gap:8px;align-items:center">
-      <button class="smallBtn" onclick="ordenarFavoritos()">Ordenar favoritos</button>
-      <button class="smallBtn" onclick="toggleEaster()">Easter eggs</button>
-    </div>
-  </section>
-
-  <section class="right">
-    <div class="frameControls">
-      <div style="flex:1"><strong id="currentTitle">Selecciona un juego</strong></div>
-      <div style="display:flex;gap:6px">
-        <button class="smallBtn" onclick="fullscreenZone()">Fullscreen</button>
-        <button class="smallBtn" onclick="openInNewTab()">Abrir en nueva pestaña</button>
-        <button class="smallBtn" onclick="downloadZone()">Descargar</button>
-        <button class="smallBtn" onclick="closeZone()">Cerrar</button>
+<body class="dark-mode">
+  <header>
+    <div class="header-content">
+      <div class="logo">chistorrita</div>
+      <div class="search-container">
+        <input id="searchBar" placeholder="Search zones..." oninput="filterZones()">
+        <select id="sortOptions" onchange="sortZones()">
+          <option value="name">Name</option>
+          <option value="id">ID (Date)</option>
+          <option value="popular">Popular</option>
+        </select>
+        <select id="filterOptions" onchange="filterZones2()">
+          <option value="none">(SELECT TAG)</option>
+        </select>
+      </div>
+      <div class="control-buttons">
+        <button id="refresh" onclick="listZones()" title="Refresh">⭯</button>
+        <button id="settings" title="Settings">⚙</button>
       </div>
     </div>
+  </header>
 
-    <div id="gameFrameWrap">
-      <iframe id="gameFrame" src="" allowfullscreen sandbox="allow-scripts allow-same-origin allow-modals"></iframe>
+  <main>
+    <details id="featuredZonesWrapper" open>
+      <summary id="allZonesSummary">Featured Zones</summary>
+      <div id="featuredZones" class="zone-container"></div>
+    </details>
+
+    <hr>
+
+    <details id="allZonesWrapper" open>
+      <summary id="allSummary">All Zones</summary>
+      <div id="container">Loading...</div>
+    </details>
+  </main>
+
+  <div id="zoneViewer" style="display:none;">
+    <div class="zone-header">
+      <div class="zone-title">
+        <h2 id="zoneName">zone</h2>
+        <span id="zoneId" style="display:none"></span>
+        <a id="zoneAuthor" href="#" target="_blank">by Author</a>
+      </div>
+      <div class="zone-controls">
+        <button onclick="fullscreenZone()">Fullscreen</button>
+        <button onclick="aboutBlank()">Open in New Tab</button>
+        <button onclick="downloadZone()">Download</button>
+        <button onclick="closeZone()">Close</button>
+      </div>
     </div>
-  </section>
-</main>
+    <iframe id="zoneFrame"></iframe>
+  </div>
 
-<!-- Panels -->
-<div id="configPanel">
-  <h3 style="margin:0 0 8px 0">Ajustes</h3>
-  <label>Título de la pestaña</label>
-  <input id="newWindowName" style="width:100%;padding:6px;margin:6px 0;border-radius:6px;background:#000;border:1px solid var(--muted);" placeholder="Chistorrita Games" />
-  <button style="width:100%;padding:8px;margin-top:6px" onclick="guardarNombre()">Guardar</button>
+  <div id="popupOverlay" style="display:none;">
+    <div class="popup">
+      <div class="popup-header">
+        <h3 id="popupTitle">Title</h3>
+        <button id="popupClose" onclick="closePopup()">×</button>
+      </div>
+      <div id="popupBody"></div>
+    </div>
+  </div>
 
-  <label style="margin-top:10px">Icono (URL)</label>
-  <input id="newIcon" style="width:100%;padding:6px;margin:6px 0;border-radius:6px;background:#000;border:1px solid var(--muted);" placeholder="https://..." />
-  <button style="width:100%;padding:8px;margin-top:6px" onclick="guardarIcono()">Guardar icono</button>
+  <footer>
+    <div class="footer-links">
+      <a href="#" onclick="loadDMCA();return false;">DMCA</a>
+      <a href="#" onclick="showContact();return false;">Contact</a>
+      <a href="#" onclick="loadPrivacy();return false;">Privacy Policy</a>
+      <a href="javascript:saveData()">Export Data</a>
+      <a href="#" onclick="document.getElementById('importData').click();return false;">Import Data</a>
+      <input type="file" id="importData" style="display:none" onchange="loadData(event)">
+    </div>
+  </footer>
 
-  <label style="margin-top:10px">Tecla de pánico</label>
-  <input id="panicKey" style="width:40px;padding:6px;border-radius:6px;background:#000;border:1px solid var(--muted);" maxlength="1" />
-  <input id="panicURL" style="width:100%;padding:6px;margin:6px 0;border-radius:6px;background:#000;border:1px solid var(--muted);" placeholder="https://..." />
-  <button style="width:100%;padding:8px;margin-top:6px" onclick="guardarPanico()">Guardar panico</button>
-
-  <button style="width:100%;padding:8px;margin-top:10px" onclick="toggleConfig()">Cerrar</button>
-</div>
-
-<div id="logro"></div>
-
-<div id="easterPanel">
-  <h4 style="margin:0 0 8px 0">Logros desbloqueados</h4>
-  <ul id="logrosList" style="padding-left:16px;margin:0"></ul>
-</div>
-
-<footer>Hecho por Chistorrita • Asegúrate de servir esto desde GitHub Pages o un servidor para mejor compatibilidad.</footer>
-
-<script>
-/* ---------- CORE ---------- */
-const iframe = document.getElementById('gameFrame');
-let currentRuta = '';
-let currentTitle = document.getElementById('currentTitle');
-
-function abrirPadlet(){
-  const win = window.open('about:blank','_blank');
-  if(!win){ alert('Ventana bloqueada'); return; }
-  win.document.write(`<html><body style='margin:0;background:#000'><iframe src='https://padlet.com/cristo11burgos/sugerencias-nog35a2z6wfi1y6e' style='width:100vw;height:100vh;border:0'></iframe></body></html>`);
-  win.document.close();
-}
-
-function abrirJuego(ruta){
-  // ruta relativa: "games/fn/dom/index.html"
-  currentRuta = ruta;
-  iframe.src = ruta + '?t=' + Date.now();
-  // mostrar nombre simple
-  const name = ruta.split('/').slice(-2)[0] || ruta;
-  currentTitle.textContent = name.replace(/[-_]/g,' ');
-}
-
-/* ---------- búsqueda y favoritos ---------- */
-function buscarJuego(){
-  const input = document.getElementById('search').value.toLowerCase();
-  const botones = Array.from(document.getElementsByClassName('btn'));
-  botones.forEach(b => {
-    b.style.display = b.innerText.toLowerCase().includes(input) ? 'inline-flex' : 'none';
-  });
-}
-
-function toggleFavorito(e,el){
-  e.stopPropagation();
-  const parent = el.parentElement;
-  const nombre = parent.childNodes[0].textContent.trim();
-  let favs = JSON.parse(localStorage.getItem('favoritos')||'[]');
-  if(el.innerText === '☆'){ el.innerText = '★'; if(!favs.includes(nombre)) favs.push(nombre); }
-  else{ el.innerText = '☆'; favs = favs.filter(x=>x!==nombre); }
-  localStorage.setItem('favoritos', JSON.stringify(favs));
-  ordenarFavoritos();
-}
-
-function ordenarFavoritos(){
-  const container = document.getElementById('gamesContainer');
-  const juegos = Array.from(container.children);
-  let favs = JSON.parse(localStorage.getItem('favoritos')||'[]');
-  juegos.sort((a,b) => {
-    const an = a.childNodes[0].textContent.trim();
-    const bn = b.childNodes[0].textContent.trim();
-    const aFav = favs.includes(an)?-1:1;
-    const bFav = favs.includes(bn)?-1:1;
-    return aFav - bFav;
-  });
-  juegos.forEach(j=>container.appendChild(j));
-}
-
-/* ---------- panel ajustes y opciones ---------- */
-function toggleConfig(){ document.getElementById('configPanel').style.display = document.getElementById('configPanel').style.display === 'block' ? 'none' : 'block'; }
-function guardarNombre(){ const n = document.getElementById('newWindowName').value || 'Chistorrita Games'; localStorage.setItem('windowName', n); document.title = n; alert('Título guardado'); }
-function guardarIcono(){ const u = document.getElementById('newIcon').value; if(u){ localStorage.setItem('windowIcon', u); document.getElementById('pageIcon').href = u; alert('Icono guardado'); } else alert('Pon una URL válida'); }
-function guardarPanico(){ const key = (document.getElementById('panicKey').value||'').toLowerCase(); const url = document.getElementById('panicURL').value; if(!key || key.length!==1){ alert('Pon UNA sola tecla'); return; } if(!url){ alert('Pon una URL válida'); return; } localStorage.setItem('panicKey', key); localStorage.setItem('panicURL', url); alert('Pánico guardado'); }
-
-/* ---------- frame controls ---------- */
-function fullscreenZone(){
-  const wrap = document.getElementById('gameFrameWrap');
-  if (wrap.requestFullscreen) wrap.requestFullscreen();
-  else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
-  else alert('Fullscreen no soportado');
-}
-
-function openInNewTab(){
-  if(!currentRuta){ alert('Selecciona un juego primero'); return; }
-  // abrir ruta directa (necesita estar servido por HTTP para funcionar correctamente)
-  window.open(currentRuta + '?t=' + Date.now(), '_blank');
-}
-
-function downloadZone(){
-  if(!currentRuta){ alert('Selecciona un juego primero'); return; }
-  // for simple sites, download is just open the file; create a temporary link to the index
-  const a = document.createElement('a');
-  a.href = currentRuta;
-  a.download = currentRuta.split('/').slice(-2).join('-');
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
-
-function closeZone(){
-  iframe.src = '';
-  currentRuta = '';
-  currentTitle.textContent = 'Selecciona un juego';
-}
-
-/* ---------- logros / easter ---------- */
-function mostrarLogro(nombre,img){
-  const logroDiv = document.getElementById('logro');
-  logroDiv.innerHTML = img ? `<img src="${img}" width="50" style="display:block;margin:0 auto"><div style="text-align:center">${nombre}</div>` : nombre;
-  logroDiv.style.display = 'block';
-  setTimeout(()=> logroDiv.style.display = 'none', 2800);
-  agregarLogro(nombre,img);
-}
-
-function agregarLogro(nombre,img){
-  let logros = JSON.parse(localStorage.getItem('logros')||'[]');
-  if(!logros.some(l=>l.nombre===nombre)){ logros.push({nombre,img}); localStorage.setItem('logros', JSON.stringify(logros)); mostrarLogros(); }
-}
-
-function mostrarLogros(){
-  const lista = document.getElementById('logrosList');
-  lista.innerHTML = '';
-  let logros = JSON.parse(localStorage.getItem('logros')||'[]');
-  logros.forEach(l => {
-    const li = document.createElement('li');
-    li.style.marginBottom = '8px';
-    li.innerHTML = l.img ? `<img src="${l.img}" width="40" style="vertical-align:middle;margin-right:8px">${l.nombre}` : l.nombre;
-    lista.appendChild(li);
-  });
-}
-function toggleEaster(){ const p = document.getElementById('easterPanel'); p.style.display = p.style.display==='block' ? 'none' : 'block'; }
-
-// inicialización
-window.onload = function(){
-  const savedName = localStorage.getItem('windowName');
-  if(savedName) { document.title = savedName; document.getElementById('newWindowName').value = savedName; }
-  const savedIcon = localStorage.getItem('windowIcon');
-  if(savedIcon) document.getElementById('pageIcon').href = savedIcon;
-
-  // cargar favoritos
-  const favs = JSON.parse(localStorage.getItem('favoritos')||'[]');
-  document.querySelectorAll('.estrella').forEach(star => {
-    const name = star.parentElement.childNodes[0].textContent.trim();
-    if(favs.includes(name)) star.innerText = '★';
-  });
-  ordenarFavoritos();
-  mostrarLogros();
-}
-
-/* ---------- tecla secreto y panico ---------- */
-let keyBuffer = '';
-document.addEventListener('keydown', e => {
-  keyBuffer += e.key.toLowerCase();
-  if(keyBuffer.length > 6) keyBuffer = keyBuffer.slice(-6);
-  if(keyBuffer.includes('teto')) {
-    mostrarLogro('teto', 'https://i.namu.wiki/i/VQgCzEUxRfCBbFzTLClclvehH7qvHh0coa1wX4Y8yW2Nmn-zF8IuZLs-WeHHg7uR_ta16yZJ0VuiVh3oO-vXRg.webp');
-  }
-});
-
-document.addEventListener('keydown', e => {
-  const panicKey = localStorage.getItem('panicKey');
-  const panicURL = localStorage.getItem('panicURL');
-  if(!panicKey || !panicURL) return;
-  if(e.key.toLowerCase() === panicKey) window.location.href = panicURL;
-});
-</script>
+  <script src="script.js"></script>
+  <script>
+    const search = new URLSearchParams(window.location.search);
+    if (search.get('privacy')) loadPrivacy();
+  </script>
 </body>
 </html>
