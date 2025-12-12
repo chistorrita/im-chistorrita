@@ -1,7 +1,7 @@
 [
   {
   "id": 1,
-  "name": "AGOTI",
+  "name": "assets",
   "url": "agoti-singlefile.html",
   "cover": "{COVER_URL}/agoti.png"
 }
