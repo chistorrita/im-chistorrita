@@ -4,9 +4,6 @@
     "name": "AGOTI",
     "url": "agoti-singlefile.html",
     "cover": "{COVER_URL}/agoti.png",
-    "author": "TuNombre",        // opcional
-    "authorLink": "https://tuweb.com",  // opcional
-    "featured": true,            // opcional, para que salga en Featured
-    "special": ["puzzle","math"] // opcional, etiquetas para filtros
+    "featured": true
   }
 ]
