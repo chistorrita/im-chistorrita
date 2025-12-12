@@ -9,7 +9,7 @@ let popularityData = {};
 // Rutas CDN correctas
 // ---------------------
 let zonesURL = 'https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/zones.json';
-const htmlURL = 'https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/games/assets/html';
+const htmlURL = 'https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/html';
 const coverURL = 'https://cdn.jsdelivr.net/gh/chistorrita/im-chistorrita@main/assets/covers';
 
 // ---------------------
