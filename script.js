@@ -121,7 +121,8 @@ function lazyLoadImages() {
 // ABRIR JUEGO SINGLEFILE
 // ---------------------------------------
 function openZone(file) {
-  const url = `${htmlURL}/${file.url}?t=${Date.now()}`;
+ const url = `${htmlURL}/${file.url}?t=${Date.now()}`;
+
 
   fetch(url)
     .then(r => r.text())
