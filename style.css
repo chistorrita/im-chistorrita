@@ -72,3 +72,30 @@ body{
 .dark-mode{
   background:#05060a;
 }
+#zoneViewer {
+  position: fixed;
+  left: 4%;
+  top: 6%;
+  width: 92%;
+  height: 86%;
+  background: #000;
+  padding: 8px;
+  border-radius: 8px;
+  z-index: 999;
+}
+
+.zone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+#zoneFrame {
+  width: 100%;
+  height: calc(100% - 52px);
+  border: none;
+}
